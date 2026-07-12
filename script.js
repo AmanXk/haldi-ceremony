@@ -752,17 +752,26 @@ this.dom.heartCollage.innerHTML = "";
 
                 const videoSrc = item.dataset.video;
 
-                this.dom.popupVideo.src = videoSrc;
+this.dom.popupVideo.pause();
 
-                this.dom.videoPopup.classList.add("active");
+this.dom.popupVideo.src = videoSrc;
 
-                if(this.dom.bgMusic){
-                    this.dom.bgMusic.pause();
-                }
+this.dom.videoPopup.classList.add("active");
 
-                this.dom.popupVideo.play();
+if (this.dom.bgMusic) {
+    this.dom.bgMusic.pause();
+}
 
-            });
+this.dom.popupVideo.onloadeddata = () => {
+    this.dom.popupVideo.play();
+};
+
+this.dom.popupVideo.load();
+};
+
+if (this.dom.bgMusic) {
+    this.dom.bgMusic.pause();
+});
 
         });
 
