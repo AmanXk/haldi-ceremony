@@ -826,6 +826,7 @@ this.dom.heartCollage.innerHTML = "";
     });
 
     this.dom.videoClose.addEventListener("click", () => {
+         alert("Video Paused");
 
         this.dom.popupVideo.pause();
 
