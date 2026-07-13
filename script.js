@@ -804,10 +804,7 @@ this.dom.heartCollage.innerHTML = "";
     videos.forEach(item => {
 
         item.addEventListener("click", () => {
-            alert("Video Clicked");
-
-            const videoSrc = item.dataset.video;
-
+                        
             this.dom.popupVideo.src = videoSrc;
 
             this.dom.popupVideo.load();
