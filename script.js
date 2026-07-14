@@ -243,10 +243,14 @@ this.dom.heartCollage.innerHTML = "";
     [-15,-55],[15,-55]
 
 ];
+const heartWidth = 570;
+const heartHeight = 790;
+
+const padding = 40;
+
 const scale = Math.min(
-    this.dom.heartCollage.clientWidth / 620,
-    this.dom.heartCollage.clientHeight / 820,
-    1
+    (this.dom.heartCollage.clientWidth - padding) / heartWidth,
+    (this.dom.heartCollage.clientHeight - padding) / heartHeight
 );
         coords.forEach((point,index)=>{
 
