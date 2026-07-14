@@ -93,10 +93,18 @@
             this.dom.lightbox.addEventListener("click", (e) => {
 
     // Image पर Click होगा तो Close नहीं होगा
+    
     if (
-        e.target === this.dom.lightboxImg ||
-        this.dom.lightboxZoom.contains(e.target)
-    ) {
+
+        this.dom.lightboxZoom.contains(e.target) ||
+
+        e.target === this.dom.lightboxPrev ||
+
+        e.target === this.dom.lightboxNext ||
+
+        e.target === this.dom.lightboxClose
+
+    ){
         return;
     }
 
