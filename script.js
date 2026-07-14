@@ -229,7 +229,11 @@ this.dom.heartCollage.innerHTML = "";
     [-15,-55],[15,-55]
 
 ];
-
+const scale = Math.min(
+    this.dom.heartCollage.clientWidth / 620,
+    this.dom.heartCollage.clientHeight / 820,
+    1
+);
         coords.forEach((point,index)=>{
 
             const img=document.createElement("img");
@@ -241,11 +245,9 @@ this.dom.heartCollage.innerHTML = "";
             img.alt=`Bride ${index+1}`;
 
             img.loading="lazy";
+img.style.left = `calc(50% + ${point[0] * scale}px)`;
 
-            img.style.left=`calc(50% + ${point[0]}px)`;
-
-            img.style.top=`calc(50% + ${point[1]}px)`;
-
+img.style.top = `calc(50% + ${point[1] * scale}px)`;
             img.style.transform="translate(-50%,-50%)";
 
             img.addEventListener("click",()=>{
