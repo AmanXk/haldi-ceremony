@@ -90,11 +90,19 @@
             this.dom.lightboxNext.addEventListener('click', () => this.next());
             
             // Dismiss viewer on structural outer click
-            this.dom.lightbox.addEventListener('click', (e) => {
-                if (e.target === this.dom.lightbox || e.target.id === 'lightbox-stage') {
-                    this.closeViewer();
-                }
-            });
+            this.dom.lightbox.addEventListener("click", (e) => {
+
+    // Image पर Click होगा तो Close नहीं होगा
+    if (
+        e.target === this.dom.lightboxImg ||
+        this.dom.lightboxZoom.contains(e.target)
+    ) {
+        return;
+    }
+
+    this.closeViewer();
+
+});
 
             // Key bindings
             document.addEventListener('keydown', (e) => {
@@ -115,6 +123,33 @@
 
             // Setup mouse zoom & drag inside light stage
             this.setupLightboxInteraction();
+            document.addEventListener("visibilitychange", () => {
+
+    if (!this.dom.bgMusic) return;
+
+    if (document.hidden) {
+
+        this.dom.bgMusic.pause();
+
+    } else {
+
+        this.dom.bgMusic.play().catch(() => {});
+
+    }
+
+});
+            // Rebuild heart collage after screen size changes
+const rebuildHeart = () => {
+
+    if (!this.dom.heartCollage) return;
+
+    this.buildHeartCollage();
+
+};
+
+window.addEventListener("resize", rebuildHeart);
+
+window.addEventListener("orientationchange", rebuildHeart);
         },
 
         // Music System
@@ -142,7 +177,11 @@
 
         // Transition from Invitation Wall into Complete Digital Album
         openAlbum() {
-                    
+            if (this.dom.bgMusic) {
+
+    this.dom.bgMusic.play().catch(() => {});
+
+}                    
             // Seamless Fade Out / Fade In transitions
             this.dom.welcomeScreen.classList.add('fade-out');
             this.dom.mainAlbum.classList.remove('hidden');
@@ -152,6 +191,7 @@
                 this.dom.mainAlbum.classList.add('visible');
                 // Trigger layout recalculation for masonry performance
                 window.dispatchEvent(new Event('resize'));
+                this.buildHeartCollage();
             }, 1200);
 
             // Terminate hero loop once inside the general system
